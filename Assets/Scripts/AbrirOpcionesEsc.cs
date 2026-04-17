@@ -3,17 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class AbrirOpcionesEsc : MonoBehaviour
 {
-    void Start()
-    {
-        string nombreEscena = SceneManager.GetActiveScene().name;
-        PlayerPrefs.SetString("ultimaEscena", nombreEscena);
-        PlayerPrefs.Save();
-    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // Abrimos OpcionesScene
+            if (GuardarProgreso.Instancia != null)
+                GuardarProgreso.Instancia.GuardarProgresoActual();
+
+            PlayerPrefs.SetString("ultimaEscena", SceneManager.GetActiveScene().name);
+            PlayerPrefs.Save();
             SceneManager.LoadScene("OpcionesScene");
         }
     }

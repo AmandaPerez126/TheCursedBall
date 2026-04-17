@@ -3,7 +3,7 @@ using UnityEngine;
 public class MovimientoBall : MonoBehaviour
 {
     public Transform player;
-    public float followDistance = 50f; // Distancia por delante del jugador
+    public float followDistance = 50f;
     public float moveSpeed = 0.5f;      // Velocidad máxima
     public float torqueForce = 0.2f;   // Fuerza de rotación
     public float noiseScale = 0.02f;   // Escala para movimiento irregular

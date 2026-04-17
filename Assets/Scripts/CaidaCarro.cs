@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class CaidaCarro : MonoBehaviour
@@ -7,35 +6,58 @@ public class CaidaCarro : MonoBehaviour
     public float rotacionObjetivoX = 90f;
     public float velocidadRotacion = 90f;
     public float tiempoAntesCaida = 0.2f;
-
     private bool triggerActivado = false;
+    private bool haCaido = false;
 
-    private void Start()
+    void Start()
     {
-        // Asegurarse que el objeto está quieto al inicio
         if (Carro != null)
         {
-            Carro.isKinematic = true;
+            if (GuardarProgreso.Instancia != null && GuardarProgreso.Instancia.TriggerFueActivado(gameObject.name))
+            {
+                triggerActivado = true;
+                haCaido = true;
+                Carro.isKinematic = false;
+                Carro.transform.rotation = Quaternion.Euler(rotacionObjetivoX, Carro.transform.eulerAngles.y, Carro.transform.eulerAngles.z);
+            }
+            else
+            {
+                Carro.isKinematic = true;
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && Carro != null)
+        if (other.CompareTag("Player") && Carro != null && !triggerActivado)
         {
             triggerActivado = true;
-            //Caida con rotacion
+
+            if (GuardarProgreso.Instancia != null)
+                GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
+
+            if (ManejadorMusica.Instancia != null)
+                ManejadorMusica.Instancia.TriggerObjetoCaer();
+
             StartCoroutine(CaerConRotacion());
         }
     }
+
+    public void ReactivarEstado(bool estado)
+    {
+        triggerActivado = estado;
+        if (triggerActivado && !haCaido && Carro != null)
+        {
+            haCaido = true;
+            Carro.isKinematic = false;
+            Carro.transform.rotation = Quaternion.Euler(rotacionObjetivoX, Carro.transform.eulerAngles.y, Carro.transform.eulerAngles.z);
+        }
+    }
+
     private System.Collections.IEnumerator CaerConRotacion()
     {
-        // Pequeño retardo si quieres
         yield return new WaitForSeconds(tiempoAntesCaida);
-
-        Carro.isKinematic = false; // Activar gravedad
-
-        // Rotación progresiva
+        Carro.isKinematic = false;
         Quaternion rotInicial = Carro.transform.rotation;
         Quaternion rotFinal = Quaternion.Euler(rotacionObjetivoX, rotInicial.eulerAngles.y, rotInicial.eulerAngles.z);
         float progreso = 0f;
@@ -46,5 +68,6 @@ public class CaidaCarro : MonoBehaviour
             Carro.transform.rotation = Quaternion.Slerp(rotInicial, rotFinal, progreso);
             yield return null;
         }
+        haCaido = true;
     }
 }

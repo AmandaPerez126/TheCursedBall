@@ -436,6 +436,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &776608150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776608152}
+  - component: {fileID: 776608151}
+  m_Layer: 0
+  m_Name: ManejadorMusica
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &776608151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776608150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b41b769abb87b846a5f107cf0d30d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ManejadorMusica
+  musicaMenu: {fileID: 8300000, guid: 15c4292ce39a3fd44a129828d89fd429, type: 3}
+  musicaCinematica1: {fileID: 8300000, guid: 994441a91d786d144a8e325a2ae999d7, type: 3}
+  musicaCinematica2: {fileID: 8300000, guid: fd7c007ad8a0155439cc882367969acb, type: 3}
+  musicaAmbiente: {fileID: 8300000, guid: e61feea34c0d2234c8fafade4e2845bc, type: 3}
+  efectos: {fileID: 0}
+  lucesEncienden: {fileID: 8300000, guid: 0591c84a2608b5744838aaeca3d43924, type: 3}
+  objetoCaeSuelo: {fileID: 8300000, guid: 85475f4464e72ac4eb541c07ba0f011c, type: 3}
+  lucesApagan: {fileID: 8300000, guid: 79920b79c11c5d04ab189dc31914cc93, type: 3}
+--- !u!4 &776608152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776608150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.67292, y: 4.2075, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &901031463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,3 +1558,4 @@ SceneRoots:
   - {fileID: 901031465}
   - {fileID: 663025081}
   - {fileID: 1302251732}
+  - {fileID: 776608152}
