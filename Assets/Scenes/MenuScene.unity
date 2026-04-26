@@ -468,11 +468,18 @@ MonoBehaviour:
   musicaMenu: {fileID: 8300000, guid: 15c4292ce39a3fd44a129828d89fd429, type: 3}
   musicaCinematica1: {fileID: 8300000, guid: 994441a91d786d144a8e325a2ae999d7, type: 3}
   musicaCinematica2: {fileID: 8300000, guid: fd7c007ad8a0155439cc882367969acb, type: 3}
+  musicaCinematica3: {fileID: 8300000, guid: aff28f4acbe74ce44837696ee1cef963, type: 3}
   musicaAmbiente: {fileID: 8300000, guid: e61feea34c0d2234c8fafade4e2845bc, type: 3}
-  efectos: {fileID: 0}
   lucesEncienden: {fileID: 8300000, guid: 0591c84a2608b5744838aaeca3d43924, type: 3}
   objetoCaeSuelo: {fileID: 8300000, guid: 85475f4464e72ac4eb541c07ba0f011c, type: 3}
-  lucesApagan: {fileID: 8300000, guid: 79920b79c11c5d04ab189dc31914cc93, type: 3}
+  lucesApagan: {fileID: 8300000, guid: 7429cb3126793934bb06462a56ee3061, type: 3}
+  sonidoJumpscare: {fileID: 8300000, guid: 84023888c9759b548a65a47d20ba70c7, type: 3}
+  sonidoLatidos: {fileID: 8300000, guid: 5b246edcf753f4a46a071fc5ad27a6e9, type: 3}
+  sonidoSusurro: {fileID: 8300000, guid: 8beccecfcde06294dafd1d11508e14de, type: 3}
+  sonidoPuerta: {fileID: 8300000, guid: 2fce67e7d1fe8c1418a523cb27cb5325, type: 3}
+  sonidoParpadeo1: {fileID: 8300000, guid: aff28f4acbe74ce44837696ee1cef963, type: 3}
+  sonidoParpadeo2: {fileID: 8300000, guid: aff28f4acbe74ce44837696ee1cef963, type: 3}
+  sonidoSustoFinal: {fileID: 8300000, guid: 284fb93bfcf74c04a927ad59b6610abe, type: 3}
 --- !u!4 &776608152
 Transform:
   m_ObjectHideFlags: 0

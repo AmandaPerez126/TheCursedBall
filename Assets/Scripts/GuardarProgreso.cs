@@ -29,10 +29,15 @@ public class GuardarProgreso : MonoBehaviour
 
     void OnSceneLoaded(Scene escena, LoadSceneMode modo)
     {
+        if (escena.name == "MenuScene")
+        {
+            Limpiar();
+        }
+
         if (tienePosicionGuardada && escena.name == ultimaEscena)
         {
-            CargarEstadoTriggers();
-            CargarPosicionJugador();
+            Invoke("CargarEstadoTriggers", 0.1f);
+            Invoke("CargarPosicionJugador", 0.1f);
         }
     }
 
@@ -44,12 +49,12 @@ public class GuardarProgreso : MonoBehaviour
         }
     }
 
-    public bool TriggerFueActivado(string nombreTrigger)
+    public bool TriggerActivado(string nombreTrigger)
     {
         return triggersActivados.Contains(nombreTrigger);
     }
 
-    public void GuardarProgresoActual()
+    public void Guardar()
     {
         GameObject jugador = GameObject.FindGameObjectWithTag("Player");
         if (jugador != null)
@@ -57,7 +62,15 @@ public class GuardarProgreso : MonoBehaviour
             posicionJugador = jugador.transform.position;
             tienePosicionGuardada = true;
         }
+
         ultimaEscena = SceneManager.GetActiveScene().name;
+    }
+
+    public void Limpiar()
+    {
+        triggersActivados.Clear();
+        tienePosicionGuardada = false;
+        ultimaEscena = "";
     }
 
     void CargarEstadoTriggers()
@@ -65,21 +78,35 @@ public class GuardarProgreso : MonoBehaviour
         ActivarLuces[] lucesTriggers = FindObjectsByType<ActivarLuces>(FindObjectsSortMode.None);
         foreach (var trigger in lucesTriggers)
         {
-            if (TriggerFueActivado(trigger.gameObject.name))
-                trigger.ReactivarEstado(true);
-        }
-
-        CaidaCarro[] carroTriggers = FindObjectsByType<CaidaCarro>(FindObjectsSortMode.None);
-        foreach (var trigger in carroTriggers)
-        {
-            if (TriggerFueActivado(trigger.gameObject.name))
+            if (TriggerActivado(trigger.gameObject.name))
                 trigger.ReactivarEstado(true);
         }
 
         DesactivarLuces[] lucesApagarTriggers = FindObjectsByType<DesactivarLuces>(FindObjectsSortMode.None);
         foreach (var trigger in lucesApagarTriggers)
         {
-            if (TriggerFueActivado(trigger.gameObject.name))
+            if (TriggerActivado(trigger.gameObject.name))
+                trigger.ReactivarEstado(true);
+        }
+
+        CaidaCarro[] carroTriggers = FindObjectsByType<CaidaCarro>(FindObjectsSortMode.None);
+        foreach (var trigger in carroTriggers)
+        {
+            if (TriggerActivado(trigger.gameObject.name))
+                trigger.ReactivarEstado(true);
+        }
+
+        ParpadeoTrigger1[] parpadeoTriggers1 = FindObjectsByType<ParpadeoTrigger1>(FindObjectsSortMode.None);
+        foreach (var trigger in parpadeoTriggers1)
+        {
+            if (TriggerActivado(trigger.gameObject.name))
+                trigger.ReactivarEstado(true);
+        }
+
+        ParpadeoTrigger2[] parpadeoTriggers2 = FindObjectsByType<ParpadeoTrigger2>(FindObjectsSortMode.None);
+        foreach (var trigger in parpadeoTriggers2)
+        {
+            if (TriggerActivado(trigger.gameObject.name))
                 trigger.ReactivarEstado(true);
         }
     }

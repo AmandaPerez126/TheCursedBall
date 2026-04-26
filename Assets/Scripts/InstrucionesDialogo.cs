@@ -8,29 +8,30 @@ public class InstruccionesDialogo : MonoBehaviour
     public string[] lines;
     public float textSpeed = 0.07f;
     private int index;
-    private bool dialogoCompletado = false;
+    private bool dialogoActivo = true;
+    private static bool dialogoCompletado = false;
 
     void Start()
     {
-        if (GuardarProgreso.Instancia != null && GuardarProgreso.Instancia.TriggerFueActivado("InstruccionesDialogo"))
+        if (dialogoCompletado)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
             return;
         }
 
-        dialogueText.text = string.Empty;
-        StartDialogo();
+        dialogueText.text = "";
+        StartCoroutine(WriteLine());
     }
 
     void Update()
     {
-        if (dialogoCompletado) return;
+        if (!dialogoActivo) return;
 
         if (Input.GetMouseButtonDown(0))
         {
             if (dialogueText.text == lines[index])
             {
-                NextLine();
+                SiguienteLinea();
             }
             else
             {
@@ -40,14 +41,9 @@ public class InstruccionesDialogo : MonoBehaviour
         }
     }
 
-    public void StartDialogo()
-    {
-        index = 0;
-        StartCoroutine(WriteLine());
-    }
-
     IEnumerator WriteLine()
     {
+        dialogueText.text = "";
         foreach (char letter in lines[index].ToCharArray())
         {
             dialogueText.text += letter;
@@ -55,20 +51,20 @@ public class InstruccionesDialogo : MonoBehaviour
         }
     }
 
-    public void NextLine()
+    public void SiguienteLinea()
     {
         if (index < lines.Length - 1)
         {
             index++;
-            dialogueText.text = string.Empty;
+            dialogueText.text = "";
             StartCoroutine(WriteLine());
         }
         else
         {
+            dialogoActivo = false;
+            dialogueText.text = "";
             dialogoCompletado = true;
-            if (GuardarProgreso.Instancia != null)
-                GuardarProgreso.Instancia.RegistrarTrigger("InstruccionesDialogo");
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

@@ -10,16 +10,25 @@ public class ManejadorMusica : MonoBehaviour
     public AudioClip musicaMenu;
     public AudioClip musicaCinematica1;
     public AudioClip musicaCinematica2;
+    public AudioClip musicaCinematica3;
     public AudioClip musicaAmbiente;
 
     [Header("Sonidos MainScene")]
     public AudioClip lucesEncienden;
     public AudioClip objetoCaeSuelo;
     public AudioClip lucesApagan;
+    public AudioClip sonidoJumpscare;
+    public AudioClip sonidoLatidos;
+    public AudioClip sonidoSusurro;
+    public AudioClip sonidoPuerta;
+    public AudioClip sonidoParpadeo1;
+    public AudioClip sonidoParpadeo2;
+    public AudioClip sonidoSustoFinal;
 
     private AudioSource fuenteMenuYOAmbiente;
     private AudioSource fuenteCinematica1;
     private AudioSource fuenteCinematica2;
+    private AudioSource fuenteCinematica3;
     private AudioSource fuenteEfectos;
     private Slider sliderVolumen;
 
@@ -47,6 +56,10 @@ public class ManejadorMusica : MonoBehaviour
         fuenteCinematica2 = gameObject.AddComponent<AudioSource>();
         fuenteCinematica2.loop = true;
         fuenteCinematica2.playOnAwake = false;
+
+        fuenteCinematica3 = gameObject.AddComponent<AudioSource>();
+        fuenteCinematica3.loop = true;
+        fuenteCinematica3.playOnAwake = false;
 
         fuenteEfectos = gameObject.AddComponent<AudioSource>();
         fuenteEfectos.loop = false;
@@ -100,6 +113,7 @@ public class ManejadorMusica : MonoBehaviour
         fuenteMenuYOAmbiente.Stop();
         fuenteCinematica1.Stop();
         fuenteCinematica2.Stop();
+        fuenteCinematica3.Stop();
 
         if (nombreEscena == "MenuScene")
         {
@@ -130,6 +144,12 @@ public class ManejadorMusica : MonoBehaviour
                 fuenteCinematica2.clip = musicaCinematica2;
                 fuenteCinematica2.Play();
             }
+
+            if (musicaCinematica3 != null)
+            {
+                fuenteCinematica3.clip = musicaCinematica3;
+                fuenteCinematica3.Play();
+            }
         }
         else if (nombreEscena == "MainScene")
         {
@@ -151,6 +171,9 @@ public class ManejadorMusica : MonoBehaviour
 
         if (fuenteCinematica2 != null)
             fuenteCinematica2.volume = v;
+
+        if (fuenteCinematica3 != null)
+            fuenteCinematica3.volume = v;
 
         if (fuenteEfectos != null)
             fuenteEfectos.volume = v;
@@ -179,6 +202,54 @@ public class ManejadorMusica : MonoBehaviour
     {
         if (lucesApagan != null)
             fuenteEfectos.PlayOneShot(lucesApagan);
+    }
+
+    public void ReproducirJumpscare()
+    {
+        if (sonidoJumpscare != null)
+            fuenteEfectos.PlayOneShot(sonidoJumpscare);
+    }
+
+    public void ReproducirLatidos()
+    {
+        if (sonidoLatidos != null)
+            fuenteEfectos.PlayOneShot(sonidoLatidos);
+    }
+
+    public void ReproducirSusurro()
+    {
+        if (sonidoSusurro != null)
+            fuenteEfectos.PlayOneShot(sonidoSusurro);
+    }
+
+    public void ReproducirPuerta()
+    {
+        if (sonidoPuerta != null)
+            fuenteEfectos.PlayOneShot(sonidoPuerta);
+    }
+
+    public void ReproducirParpadeo()
+    {
+        if (sonidoParpadeo1 != null)
+            fuenteEfectos.PlayOneShot(sonidoParpadeo1);
+    }
+
+    public void ReproducirParpadeo1()
+    {
+        if (sonidoParpadeo1 != null)
+            fuenteEfectos.PlayOneShot(sonidoParpadeo1);
+    }
+
+    public void ReproducirParpadeo2()
+    {
+        if (sonidoParpadeo2 != null)
+            fuenteEfectos.PlayOneShot(sonidoParpadeo2);
+    }
+
+    public void ReproducirSustoFinal()
+    {
+        if (sonidoSustoFinal != null)
+            fuenteEfectos.PlayOneShot(sonidoSustoFinal);
     }
 
     void OnDestroy()

@@ -8,10 +8,8 @@ public class AbrirOpcionesEsc : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GuardarProgreso.Instancia != null)
-                GuardarProgreso.Instancia.GuardarProgresoActual();
+                GuardarProgreso.Instancia.Guardar();
 
-            PlayerPrefs.SetString("ultimaEscena", SceneManager.GetActiveScene().name);
-            PlayerPrefs.Save();
             SceneManager.LoadScene("OpcionesScene");
         }
     }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class MovimientoPlayer : MonoBehaviour
 {
@@ -9,15 +8,13 @@ public class MovimientoPlayer : MonoBehaviour
 
     private Transform camara;
     private CharacterController controller;
-
     private float rotX = 0f;
 
     void Start()
     {
         camara = Camera.main.transform;
         controller = GetComponent<CharacterController>();
-
-        // Cursor siempre visible y libre
+        Time.timeScale = 1f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -34,7 +31,6 @@ public class MovimientoPlayer : MonoBehaviour
         float ValorVertical = UsaGetAxisRaw ? Input.GetAxisRaw("Vertical") : Input.GetAxis("Vertical");
 
         Vector3 direccion = transform.forward * ValorVertical + transform.right * ValorHorizontal;
-
         controller.Move(direccion.normalized * velocidad * Time.deltaTime);
     }
 

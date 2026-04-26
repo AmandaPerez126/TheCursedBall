@@ -13,7 +13,7 @@ public class CaidaCarro : MonoBehaviour
     {
         if (Carro != null)
         {
-            if (GuardarProgreso.Instancia != null && GuardarProgreso.Instancia.TriggerFueActivado(gameObject.name))
+            if (GuardarProgreso.Instancia != null && GuardarProgreso.Instancia.TriggerActivado(gameObject.name))
             {
                 triggerActivado = true;
                 haCaido = true;

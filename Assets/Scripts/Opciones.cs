@@ -8,11 +8,9 @@ public class Opciones : MonoBehaviour
 
     void Start()
     {
-        string escenaGuardada = PlayerPrefs.GetString("ultimaEscena", "");
-
         if (botonReanudar != null)
         {
-            if (escenaGuardada == "MainScene" || escenaGuardada == "CinematicaScene")
+            if (GuardarProgreso.Instancia != null && !string.IsNullOrEmpty(GuardarProgreso.Instancia.ultimaEscena))
             {
                 botonReanudar.interactable = true;
             }

@@ -10,7 +10,7 @@ public class ActivarLuces : MonoBehaviour
 
     void Start()
     {
-        if (GuardarProgreso.Instancia != null && GuardarProgreso.Instancia.TriggerFueActivado(gameObject.name))
+        if (GuardarProgreso.Instancia != null && GuardarProgreso.Instancia.TriggerActivado(gameObject.name))
         {
             activado = true;
             if (!lucesEncendidas)
