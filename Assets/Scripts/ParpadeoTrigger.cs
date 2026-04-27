@@ -12,11 +12,7 @@ public class ParpadeoTrigger : MonoBehaviour
 
     void Start()
     {
-        if (GuardarProgreso.Instancia != null && GuardarProgreso.Instancia.TriggerActivado(gameObject.name))
-        {
-            activado = true;
-            if (luz != null) luz.enabled = true;
-        }
+        if (luz != null) luz.enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,21 +22,10 @@ public class ParpadeoTrigger : MonoBehaviour
 
         activado = true;
 
-        if (GuardarProgreso.Instancia != null)
-            GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
-
         if (ManejadorMusica.Instancia != null)
-            ManejadorMusica.Instancia.ReproducirParpadeo();
+            ManejadorMusica.Instancia.ReproducirParpadeo1();
 
         StartCoroutine(Parpadeo());
-        Destroy(gameObject);
-    }
-
-    public void ReactivarEstado(bool estado)
-    {
-        activado = estado;
-        if (activado && luz != null)
-            luz.enabled = true;
     }
 
     private IEnumerator Parpadeo()

@@ -17,15 +17,12 @@ public class TriggerSustoFinal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !activado)
-        {
-            activado = true;
+        if (activado) return;
+        if (!other.CompareTag("Player")) return;
 
-            if (GuardarProgreso.Instancia != null)
-                GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
+        activado = true;
 
-            StartCoroutine(SustoFinal());
-        }
+        StartCoroutine(SustoFinal());
     }
 
     private System.Collections.IEnumerator SustoFinal()

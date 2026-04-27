@@ -42,8 +42,8 @@ public class MonstruoIntermitenteTrigger : MonoBehaviour
             colisionado = true;
             moviendo = false;
             monstruo.SetActive(false);
-            Destroy(monstruo, 0.1f);
-            Destroy(gameObject, 0.1f);
+            Destroy(monstruo);
+            Destroy(gameObject);
         }
 
         if (jugador != null)
@@ -58,27 +58,24 @@ public class MonstruoIntermitenteTrigger : MonoBehaviour
                 if (ManejadorMusica.Instancia != null)
                     ManejadorMusica.Instancia.ReproducirJumpscare();
 
-                Destroy(monstruo, 0.1f);
-                Destroy(gameObject, 0.1f);
+                Destroy(monstruo);
+                Destroy(gameObject);
             }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (!activado && other.CompareTag("Player"))
-        {
-            activado = true;
-            jugador = other.transform;
-            monstruo.transform.position = posicionInicial;
-            monstruo.transform.rotation = rotacionOriginal;
-            monstruo.transform.localScale = escalaOriginal;
-            monstruo.SetActive(true);
-            moviendo = true;
-            distanciaRecorrida = 0f;
+        if (activado) return;
+        if (!other.CompareTag("Player")) return;
 
-            if (GuardarProgreso.Instancia != null)
-                GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
-        }
+        activado = true;
+        jugador = other.transform;
+        monstruo.transform.position = posicionInicial;
+        monstruo.transform.rotation = rotacionOriginal;
+        monstruo.transform.localScale = escalaOriginal;
+        monstruo.SetActive(true);
+        moviendo = true;
+        distanciaRecorrida = 0f;
     }
 }

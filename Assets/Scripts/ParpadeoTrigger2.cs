@@ -10,42 +10,23 @@ public class ParpadeoTrigger2 : MonoBehaviour
     public bool apagarAlFinal = true;
 
     private bool activado = false;
-    private bool parpadeoCompletado = false;
 
     void Start()
     {
-        if (GuardarProgreso.Instancia != null && GuardarProgreso.Instancia.TriggerActivado(gameObject.name))
-        {
-            activado = true;
-            parpadeoCompletado = true;
-            if (luz != null) luz.enabled = !apagarAlFinal;
-        }
+        if (luz != null) luz.enabled = !apagarAlFinal;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!activado && other.CompareTag("Player"))
-        {
-            activado = true;
+        if (activado) return;
+        if (!other.CompareTag("Player")) return;
 
-            if (GuardarProgreso.Instancia != null)
-                GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
+        activado = true;
 
-            if (ManejadorMusica.Instancia != null)
-                ManejadorMusica.Instancia.ReproducirParpadeo2();
+        if (ManejadorMusica.Instancia != null)
+            ManejadorMusica.Instancia.ReproducirParpadeo2();
 
-            StartCoroutine(Parpadeo());
-        }
-    }
-
-    public void ReactivarEstado(bool estado)
-    {
-        activado = estado;
-        if (activado && !parpadeoCompletado)
-        {
-            parpadeoCompletado = true;
-            if (luz != null) luz.enabled = !apagarAlFinal;
-        }
+        StartCoroutine(Parpadeo());
     }
 
     private IEnumerator Parpadeo()
@@ -61,7 +42,5 @@ public class ParpadeoTrigger2 : MonoBehaviour
 
         if (luz != null)
             luz.enabled = !apagarAlFinal;
-
-        parpadeoCompletado = true;
     }
 }

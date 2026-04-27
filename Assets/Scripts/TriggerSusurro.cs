@@ -6,17 +6,14 @@ public class TriggerSusurro : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!hasBeenTriggered && other.CompareTag("Player"))
-        {
-            hasBeenTriggered = true;
+        if (hasBeenTriggered) return;
+        if (!other.CompareTag("Player")) return;
 
-            if (GuardarProgreso.Instancia != null)
-                GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
+        hasBeenTriggered = true;
 
-            if (ManejadorMusica.Instancia != null)
-                ManejadorMusica.Instancia.ReproducirSusurro();
+        if (ManejadorMusica.Instancia != null)
+            ManejadorMusica.Instancia.ReproducirSusurro();
 
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

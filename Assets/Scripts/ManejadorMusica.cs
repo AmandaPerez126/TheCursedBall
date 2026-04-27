@@ -108,15 +108,15 @@ public class ManejadorMusica : MonoBehaviour
         }
     }
 
-    void CambiarMusica(string nombreEscena)
+    public void CambiarMusica(string nombreEscena)
     {
-        fuenteMenuYOAmbiente.Stop();
-        fuenteCinematica1.Stop();
-        fuenteCinematica2.Stop();
-        fuenteCinematica3.Stop();
-
         if (nombreEscena == "MenuScene")
         {
+            fuenteMenuYOAmbiente.Stop();
+            fuenteCinematica1.Stop();
+            fuenteCinematica2.Stop();
+            fuenteCinematica3.Stop();
+
             if (musicaMenu != null)
             {
                 fuenteMenuYOAmbiente.clip = musicaMenu;
@@ -133,6 +133,11 @@ public class ManejadorMusica : MonoBehaviour
         }
         else if (nombreEscena == "CinematicaScene")
         {
+            fuenteMenuYOAmbiente.Stop();
+            fuenteCinematica1.Stop();
+            fuenteCinematica2.Stop();
+            fuenteCinematica3.Stop();
+
             if (musicaCinematica1 != null)
             {
                 fuenteCinematica1.clip = musicaCinematica1;
@@ -153,6 +158,11 @@ public class ManejadorMusica : MonoBehaviour
         }
         else if (nombreEscena == "MainScene")
         {
+            fuenteMenuYOAmbiente.Stop();
+            fuenteCinematica1.Stop();
+            fuenteCinematica2.Stop();
+            fuenteCinematica3.Stop();
+
             if (musicaAmbiente != null)
             {
                 fuenteMenuYOAmbiente.clip = musicaAmbiente;
@@ -186,10 +196,18 @@ public class ManejadorMusica : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void ReproducirSonidoPersonalizado(AudioClip clip)
+    public void DetenerTodosLosSonidos()
     {
-        if (clip != null)
-            fuenteEfectos.PlayOneShot(clip);
+        if (fuenteMenuYOAmbiente != null)
+            fuenteMenuYOAmbiente.Stop();
+        if (fuenteCinematica1 != null)
+            fuenteCinematica1.Stop();
+        if (fuenteCinematica2 != null)
+            fuenteCinematica2.Stop();
+        if (fuenteCinematica3 != null)
+            fuenteCinematica3.Stop();
+        if (fuenteEfectos != null)
+            fuenteEfectos.Stop();
     }
 
     public void TriggerLucesEncienden()
@@ -232,12 +250,6 @@ public class ManejadorMusica : MonoBehaviour
     {
         if (sonidoPuerta != null)
             fuenteEfectos.PlayOneShot(sonidoPuerta);
-    }
-
-    public void ReproducirParpadeo()
-    {
-        if (sonidoParpadeo1 != null)
-            fuenteEfectos.PlayOneShot(sonidoParpadeo1);
     }
 
     public void ReproducirParpadeo1()

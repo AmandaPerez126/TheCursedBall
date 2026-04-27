@@ -6,63 +6,31 @@ public class DesactivarLuces : MonoBehaviour
     public Light[] luces;
     public float tiempoEntreLuces = 0.5f;
     private bool activado = false;
-    private bool lucesApagadas = false;
 
     void Start()
     {
-        if (GuardarProgreso.Instancia != null && GuardarProgreso.Instancia.TriggerActivado(gameObject.name))
-        {
-            activado = true;
-            if (!lucesApagadas)
-            {
-                foreach (Light l in luces)
-                {
-                    if (l != null) l.enabled = false;
-                }
-                lucesApagadas = true;
-            }
-        }
+        // No hay restauración de estado
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!activado && other.CompareTag("Player"))
-        {
-            activado = true;
+        if (activado) return;
+        if (!other.CompareTag("Player")) return;
 
-            if (GuardarProgreso.Instancia != null)
-                GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
+        activado = true;
 
-            if (ManejadorMusica.Instancia != null)
-                ManejadorMusica.Instancia.TriggerLucesApagan();
+        if (ManejadorMusica.Instancia != null)
+            ManejadorMusica.Instancia.TriggerLucesApagan();
 
-            StartCoroutine(ApagarLuces());
-        }
-    }
-
-    public void ReactivarEstado(bool estado)
-    {
-        activado = estado;
-        if (activado && !lucesApagadas)
-        {
-            foreach (Light l in luces)
-            {
-                if (l != null) l.enabled = false;
-            }
-            lucesApagadas = true;
-        }
+        StartCoroutine(ApagarLuces());
     }
 
     private IEnumerator ApagarLuces()
     {
         foreach (Light l in luces)
         {
-            if (l != null)
-            {
-                l.enabled = false;
-            }
+            if (l != null) l.enabled = false;
             yield return new WaitForSeconds(tiempoEntreLuces);
         }
-        lucesApagadas = true;
     }
 }

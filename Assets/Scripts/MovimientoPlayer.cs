@@ -14,7 +14,6 @@ public class MovimientoPlayer : MonoBehaviour
     {
         camara = Camera.main.transform;
         controller = GetComponent<CharacterController>();
-        Time.timeScale = 1f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -43,7 +42,6 @@ public class MovimientoPlayer : MonoBehaviour
 
         rotX -= mouseY;
         rotX = Mathf.Clamp(rotX, -90f, 90f);
-
         camara.localEulerAngles = new Vector3(rotX, 0, 0);
     }
 }

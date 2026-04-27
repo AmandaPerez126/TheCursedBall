@@ -6,17 +6,14 @@ public class TriggerPuerta : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!hasBeenTriggered && other.CompareTag("Player"))
-        {
-            hasBeenTriggered = true;
+        if (hasBeenTriggered) return;
+        if (!other.CompareTag("Player")) return;
 
-            if (GuardarProgreso.Instancia != null)
-                GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
+        hasBeenTriggered = true;
 
-            if (ManejadorMusica.Instancia != null)
-                ManejadorMusica.Instancia.ReproducirPuerta();
+        if (ManejadorMusica.Instancia != null)
+            ManejadorMusica.Instancia.ReproducirPuerta();
 
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

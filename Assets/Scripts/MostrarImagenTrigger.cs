@@ -21,18 +21,15 @@ public class MostrarImagenTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!activado && other.CompareTag("Player"))
-        {
-            activado = true;
+        if (activado) return;
+        if (!other.CompareTag("Player")) return;
 
-            if (GuardarProgreso.Instancia != null)
-                GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
+        activado = true;
 
-            if (aparecerEnSecuencia)
-                StartCoroutine(MostrarEnSecuencia());
-            else
-                StartCoroutine(MostrarTodosJuntos());
-        }
+        if (aparecerEnSecuencia)
+            StartCoroutine(MostrarEnSecuencia());
+        else
+            StartCoroutine(MostrarTodosJuntos());
     }
 
     IEnumerator MostrarTodosJuntos()
@@ -50,8 +47,6 @@ public class MostrarImagenTrigger : MonoBehaviour
             if (sprite != null)
                 sprite.SetActive(false);
         }
-
-        Destroy(gameObject);
     }
 
     IEnumerator MostrarEnSecuencia()
@@ -60,7 +55,6 @@ public class MostrarImagenTrigger : MonoBehaviour
         {
             if (sprite != null)
                 sprite.SetActive(true);
-
             yield return new WaitForSeconds(tiempoEntreSprites);
         }
 
@@ -71,7 +65,5 @@ public class MostrarImagenTrigger : MonoBehaviour
             if (sprite != null)
                 sprite.SetActive(false);
         }
-
-        Destroy(gameObject);
     }
 }
