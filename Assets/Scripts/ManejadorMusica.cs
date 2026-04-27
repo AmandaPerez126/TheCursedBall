@@ -186,6 +186,12 @@ public class ManejadorMusica : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public void ReproducirSonidoPersonalizado(AudioClip clip)
+    {
+        if (clip != null)
+            fuenteEfectos.PlayOneShot(clip);
+    }
+
     public void TriggerLucesEncienden()
     {
         if (lucesEncienden != null)

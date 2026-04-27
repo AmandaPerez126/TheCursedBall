@@ -1,22 +1,45 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TriggerSustoFinal : MonoBehaviour
 {
+    public Image jumpscareImage;
+    public float displayDuration = 1.5f;
+
     private bool activado = false;
 
-    void OnTriggerEnter(Collider other)
+    void Start()
     {
-        if (activado) return;
-        if (!other.CompareTag("Player")) return;
+        if (jumpscareImage != null)
+            jumpscareImage.gameObject.SetActive(false);
+    }
 
-        activado = true;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !activado)
+        {
+            activado = true;
 
-        if (GuardarProgreso.Instancia != null)
-            GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
+            if (GuardarProgreso.Instancia != null)
+                GuardarProgreso.Instancia.RegistrarTrigger(gameObject.name);
+
+            StartCoroutine(SustoFinal());
+        }
+    }
+
+    private System.Collections.IEnumerator SustoFinal()
+    {
+        if (jumpscareImage != null)
+            jumpscareImage.gameObject.SetActive(true);
 
         if (ManejadorMusica.Instancia != null)
             ManejadorMusica.Instancia.ReproducirSustoFinal();
+
+        yield return new WaitForSeconds(displayDuration);
+
+        if (jumpscareImage != null)
+            jumpscareImage.gameObject.SetActive(false);
 
         if (GuardarProgreso.Instancia != null)
             GuardarProgreso.Instancia.Limpiar();
