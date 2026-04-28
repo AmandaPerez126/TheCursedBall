@@ -470,6 +470,7 @@ MonoBehaviour:
   musicaCinematica2: {fileID: 8300000, guid: fd7c007ad8a0155439cc882367969acb, type: 3}
   musicaCinematica3: {fileID: 8300000, guid: aff28f4acbe74ce44837696ee1cef963, type: 3}
   musicaAmbiente: {fileID: 8300000, guid: e61feea34c0d2234c8fafade4e2845bc, type: 3}
+  musicaFinal: {fileID: 8300000, guid: 52910a7aed36fde4ebb422de609deee4, type: 3}
   lucesEncienden: {fileID: 8300000, guid: 0591c84a2608b5744838aaeca3d43924, type: 3}
   objetoCaeSuelo: {fileID: 8300000, guid: 85475f4464e72ac4eb541c07ba0f011c, type: 3}
   lucesApagan: {fileID: 8300000, guid: 6d6ba41e2b32245489010540193f1515, type: 3}

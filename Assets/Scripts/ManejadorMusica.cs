@@ -11,6 +11,7 @@ public class ManejadorMusica : MonoBehaviour
     public AudioClip musicaCinematica2;
     public AudioClip musicaCinematica3;
     public AudioClip musicaAmbiente;
+    public AudioClip musicaFinal;
 
     public AudioClip lucesEncienden;
     public AudioClip objetoCaeSuelo;
@@ -178,6 +179,20 @@ public class ManejadorMusica : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public void ReproducirMusicaFinal()
+    {
+        if (musicaFinal != null)
+        {
+            fuenteMenuYOAmbiente.Stop();
+            fuenteCinematica1.Stop();
+            fuenteCinematica2.Stop();
+            fuenteCinematica3.Stop();
+            fuenteMenuYOAmbiente.clip = musicaFinal;
+            fuenteMenuYOAmbiente.loop = true;
+            fuenteMenuYOAmbiente.Play();
+        }
+    }
+
     public void DetenerTodosLosSonidos()
     {
         if (fuenteMenuYOAmbiente != null) fuenteMenuYOAmbiente.Stop();
@@ -236,15 +251,7 @@ public class ManejadorMusica : MonoBehaviour
     {
         if (sonidoSustoFinal != null) fuenteEfectos.PlayOneShot(sonidoSustoFinal);
     }
-    public void RegistrarSlider(Slider slider)
-    {
-        if (slider == null) return;
-        slider.minValue = 0f;
-        slider.maxValue = 1f;
-        slider.value = PlayerPrefs.GetFloat("MusicVolume", 0.7f);
-        slider.onValueChanged.RemoveAllListeners();
-        slider.onValueChanged.AddListener(CambiarVolumen);
-    }
+
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= AlCargarEscena;

@@ -42,6 +42,6 @@ public class TriggerSustoFinal : MonoBehaviour
         if (jumpscareImage != null)
             jumpscareImage.gameObject.SetActive(false);
 
-        SceneManager.LoadScene("MenuScene");
+        SceneManager.LoadScene("FinalScene");
     }
 }
