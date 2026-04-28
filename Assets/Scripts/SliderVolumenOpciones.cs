@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SliderVolumenMain : MonoBehaviour
+public class SliderVolumenOpciones : MonoBehaviour
 {
     private Slider slider;
 
@@ -18,17 +18,6 @@ public class SliderVolumenMain : MonoBehaviour
 
         if (ManejadorMusica.Instancia != null)
             ManejadorMusica.Instancia.CambiarVolumen(volumen);
-    }
-
-    void Update()
-    {
-        float rueda = Input.GetAxis("Mouse ScrollWheel");
-        if (rueda != 0f)
-        {
-            float nuevo = slider.value + rueda * 0.05f;
-            nuevo = Mathf.Clamp01(nuevo);
-            slider.value = nuevo;
-        }
     }
 
     private void OnVolumenCambiado(float valor)
