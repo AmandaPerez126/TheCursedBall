@@ -47,16 +47,14 @@ public class GuardarProgreso : MonoBehaviour
             tienePosicionGuardada = true;
         }
         ultimaEscena = SceneManager.GetActiveScene().name;
+        Debug.Log("Posición guardada en: " + ultimaEscena);
     }
 
     public void Limpiar()
     {
         tienePosicionGuardada = false;
         ultimaEscena = "";
-        if (ManejadorMusica.Instancia != null)
-        {
-            ManejadorMusica.Instancia.DetenerTodosLosSonidos();
-        }
+        Debug.Log("Progreso limpiado");
     }
 
     void CargarPosicionJugador()
@@ -67,6 +65,7 @@ public class GuardarProgreso : MonoBehaviour
             if (jugador != null)
             {
                 jugador.transform.position = posicionJugador;
+                Debug.Log("Posición cargada: " + posicionJugador);
             }
         }
     }

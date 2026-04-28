@@ -47,6 +47,8 @@ public class MostrarImagenTrigger : MonoBehaviour
             if (sprite != null)
                 sprite.SetActive(false);
         }
+
+        gameObject.SetActive(false);
     }
 
     IEnumerator MostrarEnSecuencia()
@@ -65,5 +67,7 @@ public class MostrarImagenTrigger : MonoBehaviour
             if (sprite != null)
                 sprite.SetActive(false);
         }
+
+        gameObject.SetActive(false);
     }
 }

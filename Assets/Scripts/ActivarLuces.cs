@@ -7,12 +7,7 @@ public class ActivarLuces : MonoBehaviour
     public float tiempoEntreLuces = 0.5f;
     private bool activado = false;
 
-    void Start()
-    {
-        // No hay restauración de estado
-    }
-
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (activado) return;
         if (!other.CompareTag("Player")) return;
@@ -32,5 +27,6 @@ public class ActivarLuces : MonoBehaviour
             if (l != null) l.enabled = true;
             yield return new WaitForSeconds(tiempoEntreLuces);
         }
+        gameObject.SetActive(false);
     }
 }

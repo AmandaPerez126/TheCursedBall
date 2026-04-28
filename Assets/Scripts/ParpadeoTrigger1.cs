@@ -11,11 +11,6 @@ public class ParpadeoTrigger1 : MonoBehaviour
 
     private bool activado = false;
 
-    void Start()
-    {
-        if (luz != null) luz.enabled = !apagarAlFinal;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (activado) return;

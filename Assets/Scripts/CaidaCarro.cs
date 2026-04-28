@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CaidaCarro : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CaidaCarro : MonoBehaviour
         if (Carro != null)
         {
             Carro.isKinematic = true;
+            Carro.useGravity = false;
         }
     }
 
@@ -30,19 +32,24 @@ public class CaidaCarro : MonoBehaviour
         StartCoroutine(CaerConRotacion());
     }
 
-    private System.Collections.IEnumerator CaerConRotacion()
+    private IEnumerator CaerConRotacion()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(tiempoAntesCaida);
         Carro.isKinematic = false;
+        Carro.useGravity = true;
         Quaternion rotInicial = Carro.transform.rotation;
-        Quaternion rotFinal = Quaternion.Euler(90f, rotInicial.eulerAngles.y, rotInicial.eulerAngles.z);
-        float progreso = 0f;
+        Quaternion rotFinal = Quaternion.Euler(rotacionObjetivoX, rotInicial.eulerAngles.y, rotInicial.eulerAngles.z);
+        float duracion = rotacionObjetivoX / velocidadRotacion;
+        float tiempo = 0f;
 
-        while (progreso < 1f)
+        while (tiempo < duracion)
         {
-            progreso += Time.deltaTime * 1f;
+            tiempo += Time.deltaTime;
+            float progreso = tiempo / duracion;
             Carro.transform.rotation = Quaternion.Slerp(rotInicial, rotFinal, progreso);
             yield return null;
         }
+
+        gameObject.SetActive(false);
     }
 }

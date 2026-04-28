@@ -6,14 +6,12 @@ public class ManejadorMusica : MonoBehaviour
 {
     public static ManejadorMusica Instancia;
 
-    [Header("Audios de fondo por escena")]
     public AudioClip musicaMenu;
     public AudioClip musicaCinematica1;
     public AudioClip musicaCinematica2;
     public AudioClip musicaCinematica3;
     public AudioClip musicaAmbiente;
 
-    [Header("Sonidos MainScene")]
     public AudioClip lucesEncienden;
     public AudioClip objetoCaeSuelo;
     public AudioClip lucesApagan;
@@ -31,7 +29,6 @@ public class ManejadorMusica : MonoBehaviour
     private AudioSource fuenteCinematica3;
     private AudioSource fuenteEfectos;
     private Slider sliderVolumen;
-
     private string escenaActual = "";
 
     void Awake()
@@ -72,7 +69,6 @@ public class ManejadorMusica : MonoBehaviour
     {
         float vol = PlayerPrefs.GetFloat("MusicVolume", 0.7f);
         AplicarVolumen(vol);
-
         escenaActual = SceneManager.GetActiveScene().name;
         CambiarMusica(escenaActual);
     }
@@ -80,29 +76,29 @@ public class ManejadorMusica : MonoBehaviour
     void AlCargarEscena(Scene escena, LoadSceneMode modo)
     {
         escenaActual = escena.name;
+        if (escena.name == "MenuScene" || escena.name == "MainScene")
+        {
+            if (fuenteEfectos != null)
+                fuenteEfectos.Stop();
+        }
         CambiarMusica(escena.name);
     }
 
     void Update()
     {
         if (escenaActual == "OpcionesScene" && sliderVolumen == null)
-        {
             BuscarSliderEnEscena();
-        }
     }
 
     void BuscarSliderEnEscena()
     {
         sliderVolumen = FindFirstObjectByType<Slider>();
-
         if (sliderVolumen != null)
         {
             float volGuardado = PlayerPrefs.GetFloat("MusicVolume", 0.7f);
-
             sliderVolumen.minValue = 0f;
             sliderVolumen.maxValue = 1f;
             sliderVolumen.value = volGuardado;
-
             sliderVolumen.onValueChanged.RemoveAllListeners();
             sliderVolumen.onValueChanged.AddListener(CambiarVolumen);
         }
@@ -116,7 +112,6 @@ public class ManejadorMusica : MonoBehaviour
             fuenteCinematica1.Stop();
             fuenteCinematica2.Stop();
             fuenteCinematica3.Stop();
-
             if (musicaMenu != null)
             {
                 fuenteMenuYOAmbiente.clip = musicaMenu;
@@ -137,19 +132,16 @@ public class ManejadorMusica : MonoBehaviour
             fuenteCinematica1.Stop();
             fuenteCinematica2.Stop();
             fuenteCinematica3.Stop();
-
             if (musicaCinematica1 != null)
             {
                 fuenteCinematica1.clip = musicaCinematica1;
                 fuenteCinematica1.Play();
             }
-
             if (musicaCinematica2 != null)
             {
                 fuenteCinematica2.clip = musicaCinematica2;
                 fuenteCinematica2.Play();
             }
-
             if (musicaCinematica3 != null)
             {
                 fuenteCinematica3.clip = musicaCinematica3;
@@ -162,7 +154,6 @@ public class ManejadorMusica : MonoBehaviour
             fuenteCinematica1.Stop();
             fuenteCinematica2.Stop();
             fuenteCinematica3.Stop();
-
             if (musicaAmbiente != null)
             {
                 fuenteMenuYOAmbiente.clip = musicaAmbiente;
@@ -173,23 +164,14 @@ public class ManejadorMusica : MonoBehaviour
 
     void AplicarVolumen(float v)
     {
-        if (fuenteMenuYOAmbiente != null)
-            fuenteMenuYOAmbiente.volume = v;
-
-        if (fuenteCinematica1 != null)
-            fuenteCinematica1.volume = v;
-
-        if (fuenteCinematica2 != null)
-            fuenteCinematica2.volume = v;
-
-        if (fuenteCinematica3 != null)
-            fuenteCinematica3.volume = v;
-
-        if (fuenteEfectos != null)
-            fuenteEfectos.volume = v;
+        if (fuenteMenuYOAmbiente != null) fuenteMenuYOAmbiente.volume = v;
+        if (fuenteCinematica1 != null) fuenteCinematica1.volume = v;
+        if (fuenteCinematica2 != null) fuenteCinematica2.volume = v;
+        if (fuenteCinematica3 != null) fuenteCinematica3.volume = v;
+        if (fuenteEfectos != null) fuenteEfectos.volume = v;
     }
 
-    void CambiarVolumen(float v)
+    public void CambiarVolumen(float v)
     {
         AplicarVolumen(v);
         PlayerPrefs.SetFloat("MusicVolume", v);
@@ -198,78 +180,71 @@ public class ManejadorMusica : MonoBehaviour
 
     public void DetenerTodosLosSonidos()
     {
-        if (fuenteMenuYOAmbiente != null)
-            fuenteMenuYOAmbiente.Stop();
-        if (fuenteCinematica1 != null)
-            fuenteCinematica1.Stop();
-        if (fuenteCinematica2 != null)
-            fuenteCinematica2.Stop();
-        if (fuenteCinematica3 != null)
-            fuenteCinematica3.Stop();
-        if (fuenteEfectos != null)
-            fuenteEfectos.Stop();
+        if (fuenteMenuYOAmbiente != null) fuenteMenuYOAmbiente.Stop();
+        if (fuenteCinematica1 != null) fuenteCinematica1.Stop();
+        if (fuenteCinematica2 != null) fuenteCinematica2.Stop();
+        if (fuenteCinematica3 != null) fuenteCinematica3.Stop();
+        if (fuenteEfectos != null) fuenteEfectos.Stop();
     }
 
     public void TriggerLucesEncienden()
     {
-        if (lucesEncienden != null)
-            fuenteEfectos.PlayOneShot(lucesEncienden);
+        if (lucesEncienden != null) fuenteEfectos.PlayOneShot(lucesEncienden);
     }
 
     public void TriggerObjetoCaer()
     {
-        if (objetoCaeSuelo != null)
-            fuenteEfectos.PlayOneShot(objetoCaeSuelo);
+        if (objetoCaeSuelo != null) fuenteEfectos.PlayOneShot(objetoCaeSuelo);
     }
 
     public void TriggerLucesApagan()
     {
-        if (lucesApagan != null)
-            fuenteEfectos.PlayOneShot(lucesApagan);
+        if (lucesApagan != null) fuenteEfectos.PlayOneShot(lucesApagan);
     }
 
     public void ReproducirJumpscare()
     {
-        if (sonidoJumpscare != null)
-            fuenteEfectos.PlayOneShot(sonidoJumpscare);
+        if (sonidoJumpscare != null) fuenteEfectos.PlayOneShot(sonidoJumpscare);
     }
 
     public void ReproducirLatidos()
     {
-        if (sonidoLatidos != null)
-            fuenteEfectos.PlayOneShot(sonidoLatidos);
+        if (sonidoLatidos != null) fuenteEfectos.PlayOneShot(sonidoLatidos);
     }
 
     public void ReproducirSusurro()
     {
-        if (sonidoSusurro != null)
-            fuenteEfectos.PlayOneShot(sonidoSusurro);
+        if (sonidoSusurro != null) fuenteEfectos.PlayOneShot(sonidoSusurro);
     }
 
     public void ReproducirPuerta()
     {
-        if (sonidoPuerta != null)
-            fuenteEfectos.PlayOneShot(sonidoPuerta);
+        if (sonidoPuerta != null) fuenteEfectos.PlayOneShot(sonidoPuerta);
     }
 
     public void ReproducirParpadeo1()
     {
-        if (sonidoParpadeo1 != null)
-            fuenteEfectos.PlayOneShot(sonidoParpadeo1);
+        if (sonidoParpadeo1 != null) fuenteEfectos.PlayOneShot(sonidoParpadeo1);
     }
 
     public void ReproducirParpadeo2()
     {
-        if (sonidoParpadeo2 != null)
-            fuenteEfectos.PlayOneShot(sonidoParpadeo2);
+        if (sonidoParpadeo2 != null) fuenteEfectos.PlayOneShot(sonidoParpadeo2);
     }
 
     public void ReproducirSustoFinal()
     {
-        if (sonidoSustoFinal != null)
-            fuenteEfectos.PlayOneShot(sonidoSustoFinal);
+        if (sonidoSustoFinal != null) fuenteEfectos.PlayOneShot(sonidoSustoFinal);
     }
-
+    public void RegistrarSlider(Slider slider)
+    {
+        if (slider == null) return;
+        slider.minValue = 0f;
+        slider.maxValue = 1f;
+        slider.value = PlayerPrefs.GetFloat("MusicVolume", 0.7f);
+        slider.onValueChanged.RemoveAllListeners();
+        slider.onValueChanged.AddListener(CambiarVolumen);
+    }
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= AlCargarEscena;

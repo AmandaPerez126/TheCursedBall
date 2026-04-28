@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class TriggerSustoFinal : MonoBehaviour
 {
@@ -21,25 +22,25 @@ public class TriggerSustoFinal : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         activado = true;
-
         StartCoroutine(SustoFinal());
     }
 
-    private System.Collections.IEnumerator SustoFinal()
+    private IEnumerator SustoFinal()
     {
         if (jumpscareImage != null)
             jumpscareImage.gameObject.SetActive(true);
 
         if (ManejadorMusica.Instancia != null)
+        {
             ManejadorMusica.Instancia.ReproducirSustoFinal();
+            yield return new WaitForSeconds(0.5f);
+            ManejadorMusica.Instancia.DetenerTodosLosSonidos();
+        }
 
-        yield return new WaitForSeconds(displayDuration);
+        yield return new WaitForSeconds(displayDuration - 0.5f);
 
         if (jumpscareImage != null)
             jumpscareImage.gameObject.SetActive(false);
-
-        if (GuardarProgreso.Instancia != null)
-            GuardarProgreso.Instancia.Limpiar();
 
         SceneManager.LoadScene("MenuScene");
     }

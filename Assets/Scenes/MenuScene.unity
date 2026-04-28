@@ -472,7 +472,7 @@ MonoBehaviour:
   musicaAmbiente: {fileID: 8300000, guid: e61feea34c0d2234c8fafade4e2845bc, type: 3}
   lucesEncienden: {fileID: 8300000, guid: 0591c84a2608b5744838aaeca3d43924, type: 3}
   objetoCaeSuelo: {fileID: 8300000, guid: 85475f4464e72ac4eb541c07ba0f011c, type: 3}
-  lucesApagan: {fileID: 8300000, guid: 2bab9794f73ecb04bbf045d4e141fce2, type: 3}
+  lucesApagan: {fileID: 8300000, guid: 6d6ba41e2b32245489010540193f1515, type: 3}
   sonidoJumpscare: {fileID: 8300000, guid: 84023888c9759b548a65a47d20ba70c7, type: 3}
   sonidoLatidos: {fileID: 8300000, guid: 5b246edcf753f4a46a071fc5ad27a6e9, type: 3}
   sonidoSusurro: {fileID: 8300000, guid: 8beccecfcde06294dafd1d11508e14de, type: 3}

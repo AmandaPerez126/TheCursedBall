@@ -42,8 +42,7 @@ public class MonstruoIntermitenteTrigger : MonoBehaviour
             colisionado = true;
             moviendo = false;
             monstruo.SetActive(false);
-            Destroy(monstruo);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         if (jugador != null)
@@ -54,12 +53,9 @@ public class MonstruoIntermitenteTrigger : MonoBehaviour
                 colisionado = true;
                 moviendo = false;
                 monstruo.SetActive(false);
-
                 if (ManejadorMusica.Instancia != null)
                     ManejadorMusica.Instancia.ReproducirJumpscare();
-
-                Destroy(monstruo);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }
