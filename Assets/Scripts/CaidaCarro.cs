@@ -1,50 +1,61 @@
-using System;
 using UnityEngine;
+using System.Collections;
 
+// El carro se vuelve físico y hace caer carro hacia el jugador
 public class CaidaCarro : MonoBehaviour
 {
     public Rigidbody Carro;
-    public float rotacionObjetivoX = 90f;
-    public float velocidadRotacion = 90f;
-    public float tiempoAntesCaida = 0.2f;
+    public float rotacionObjetivoX = 90f; //Rotacion final en X
+    public float velocidadRotacion = 90f; //Velocidad de rotación
+    public float tiempoAntesCaida = 0.2f; //Pausa antes de caer
+    private bool activado = false;
 
-    private bool triggerActivado = false;
-
-    private void Start()
+    void Start()
     {
-        // Asegurarse que el objeto está quieto al inicio
         if (Carro != null)
         {
+            //// Inicialmente el carro no responde a física
             Carro.isKinematic = true;
+            Carro.useGravity = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && Carro != null)
-        {
-            triggerActivado = true;
-            //Caida con rotacion
-            StartCoroutine(CaerConRotacion());
-        }
+        if (activado) return;
+        if (!other.CompareTag("Player")) return;
+        if (Carro == null) return;
+
+        activado = true;
+        // Sonido
+        if (ManejadorMusica.Instancia != null)
+            ManejadorMusica.Instancia.TriggerObjetoCaer();
+
+        StartCoroutine(CaerConRotacion());
     }
-    private System.Collections.IEnumerator CaerConRotacion()
+
+    //Activa gravedad y rota el carro
+    private IEnumerator CaerConRotacion()
     {
-        // Pequeño retardo si quieres
         yield return new WaitForSeconds(tiempoAntesCaida);
-
-        Carro.isKinematic = false; // Activar gravedad
-
-        // Rotación progresiva
+        //Activa físicas
+        Carro.isKinematic = false;
+        Carro.useGravity = true;
+        //calcula rotación final
         Quaternion rotInicial = Carro.transform.rotation;
         Quaternion rotFinal = Quaternion.Euler(rotacionObjetivoX, rotInicial.eulerAngles.y, rotInicial.eulerAngles.z);
-        float progreso = 0f;
+        float duracion = rotacionObjetivoX / velocidadRotacion;
+        float tiempo = 0f;
 
-        while (progreso < 1f)
+        // Interpola la rotación suavemente
+        while (tiempo < duracion)
         {
-            progreso += Time.deltaTime * (velocidadRotacion / rotacionObjetivoX);
+            tiempo += Time.deltaTime;
+            float progreso = tiempo / duracion;
             Carro.transform.rotation = Quaternion.Slerp(rotInicial, rotFinal, progreso);
             yield return null;
         }
+
+        gameObject.SetActive(false); //Desactiva el trigger
     }
 }

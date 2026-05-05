@@ -1,33 +1,34 @@
 using UnityEngine;
 using System.Collections;
 
-public class ApagarLucesSecuencia : MonoBehaviour
-{
-    public Light[] luces;                 // Array con las luces de techo
-    public float tiempoEntreLuces = 0.5f; // Tiempo entre apagar cada luz
 
-    // Para que solo se ejecute una vez
+// Apaga array de luces secuencialmente
+public class DesactivarLuces : MonoBehaviour
+{
+    public Light[] luces;
+    public float tiempoEntreLuces = 0.5f;
     private bool activado = false;
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (!activado && other.CompareTag("Player"))
-        {
-            activado = true;
-            StartCoroutine(ApagarLuces());
-        }
+        if (activado) return;
+        if (!other.CompareTag("Player")) return;
+
+        activado = true;
+
+        if (ManejadorMusica.Instancia != null)
+            ManejadorMusica.Instancia.TriggerLucesApagan();
+
+        StartCoroutine(ApagarLuces());
     }
 
     private IEnumerator ApagarLuces()
     {
         foreach (Light l in luces)
         {
-            if (l != null)
-            {
-                l.enabled = false;  // Apagar la luz
-                Debug.Log("Luz apagada: " + l.name);
-            }
+            if (l != null) l.enabled = false; //Apaga cada luz 
             yield return new WaitForSeconds(tiempoEntreLuces);
         }
+        gameObject.SetActive(false);
     }
 }

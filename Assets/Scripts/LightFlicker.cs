@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Parpadeo continuo de luz en Cinematica con tiempos aleatorios
 public class ParpadeoLuces : MonoBehaviour
 {
     public Light luz;
@@ -14,9 +15,9 @@ public class ParpadeoLuces : MonoBehaviour
 
     System.Collections.IEnumerator Parpadear()
     {
-        while (true)
+        while (true) // Bucle infinito, parpadea siempre
         {
-            luz.enabled = !luz.enabled;
+            luz.enabled = !luz.enabled; // Cambia estado
             yield return new WaitForSeconds(Random.Range(minTiempo, maxTiempo));
         }
     }

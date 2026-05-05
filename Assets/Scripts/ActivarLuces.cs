@@ -1,31 +1,34 @@
 using UnityEngine;
 using System.Collections;
 
-public class ActivarLucesSecuencia : MonoBehaviour
+// Activa las luces del techo al entrar el jugador, una tras otra
+public class ActivarLuces : MonoBehaviour
 {
-    public Light[] luces;         // Array con las luces de techo
-    public float tiempoEntreLuces = 0.5f; // Tiempo entre cada luz
-
+    public Light[] luces;
+    public float tiempoEntreLuces = 0.5f; //Tiempo entre cada luz
     private bool activado = false;
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (!activado && other.CompareTag("Player"))
-        {
-            activado = true;
-            StartCoroutine(EncenderLuces());
-        }
+        if (activado) return;
+        if (!other.CompareTag("Player")) return;
+
+        activado = true;
+
+        // Notifica al manejador de música
+        if (ManejadorMusica.Instancia != null)
+            ManejadorMusica.Instancia.TriggerLucesEncienden();
+
+        StartCoroutine(EncenderLuces());
     }
 
     private IEnumerator EncenderLuces()
     {
         foreach (Light l in luces)
         {
-            if (l != null)
-            {
-                l.enabled = true;  // Encender la luz
-            }
-            yield return new WaitForSeconds(tiempoEntreLuces); // Espera de tiempo entre luces 
+            if (l != null) l.enabled = true;
+            yield return new WaitForSeconds(tiempoEntreLuces);
         }
+        gameObject.SetActive(false); // Desactiva el trigger
     }
 }
