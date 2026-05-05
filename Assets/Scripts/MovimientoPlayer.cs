@@ -1,8 +1,9 @@
 using UnityEngine;
 
+//Controla el movimiento y la cámara en primera persona.
 public class MovimientoPlayer : MonoBehaviour
 {
-    [SerializeField] private bool UsaGetAxisRaw = true;
+    [SerializeField] private bool UsaGetAxisRaw = true; // Movimiento más brusco o suave
     [SerializeField] private float velocidad = 3f;
     [SerializeField] private float sensibilidadMouse = 2f;
 
@@ -14,6 +15,8 @@ public class MovimientoPlayer : MonoBehaviour
     {
         camara = Camera.main.transform;
         controller = GetComponent<CharacterController>();
+
+        // El cursor es visible y libre
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -38,8 +41,10 @@ public class MovimientoPlayer : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * sensibilidadMouse;
         float mouseY = Input.GetAxis("Mouse Y") * sensibilidadMouse;
 
+        // Rotación horizontal del cuerpo
         transform.Rotate(Vector3.up * mouseX);
 
+        // Rotación vertical de la cámara, con límites
         rotX -= mouseY;
         rotX = Mathf.Clamp(rotX, -90f, 90f);
         camara.localEulerAngles = new Vector3(rotX, 0, 0);

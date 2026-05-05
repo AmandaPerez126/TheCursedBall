@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
+//Muestra fade con frases finales y regresa a MenuScene reiniciando
 public class FinalSceneManager : MonoBehaviour
 {
     public TextMeshProUGUI textoFinal;
@@ -11,6 +12,7 @@ public class FinalSceneManager : MonoBehaviour
 
     void Start()
     {
+        // Reproduce música
         if (ManejadorMusica.Instancia != null)
             ManejadorMusica.Instancia.ReproducirMusicaFinal();
 
@@ -26,6 +28,7 @@ public class FinalSceneManager : MonoBehaviour
             yield return new WaitForSeconds(tiempoEntreFrases);
         }
 
+        // Detiene toda la música antes de cambiar de escena
         if (ManejadorMusica.Instancia != null)
             ManejadorMusica.Instancia.DetenerTodosLosSonidos();
 

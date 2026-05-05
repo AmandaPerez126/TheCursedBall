@@ -3,10 +3,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
+//Al entrar el jugador al trigger, muestra una imagen, reproduce un sonido y luego carga la escena final
 public class TriggerSustoFinal : MonoBehaviour
 {
-    public Image jumpscareImage;
-    public float displayDuration = 1.5f;
+    public Image jumpscareImage; // Imagen que aparece en pantalla
+    public float displayDuration = 1.5f; // Duración
 
     private bool activado = false;
 
@@ -27,6 +28,7 @@ public class TriggerSustoFinal : MonoBehaviour
 
     private IEnumerator SustoFinal()
     {
+        // Muestra la imagen
         if (jumpscareImage != null)
             jumpscareImage.gameObject.SetActive(true);
 

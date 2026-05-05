@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
+//Luz comienza a parpadear durante un tiempo determinado
 public class ParpadeoTrigger2 : MonoBehaviour
 {
     public Light luz;
     public float duracionParpadeo = 2f;
     public float minTiempo = 0.05f;
     public float maxTiempo = 0.3f;
-    public bool apagarAlFinal = true;
+    public bool apagarAlFinal = true; // Si true, la luz queda apagada
 
     private bool activado = false;
 
@@ -18,6 +19,7 @@ public class ParpadeoTrigger2 : MonoBehaviour
 
         activado = true;
 
+        //Sonido
         if (ManejadorMusica.Instancia != null)
             ManejadorMusica.Instancia.ReproducirParpadeo2();
 

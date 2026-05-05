@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+
+// Apaga array de luces secuencialmente
 public class DesactivarLuces : MonoBehaviour
 {
     public Light[] luces;
@@ -24,7 +26,7 @@ public class DesactivarLuces : MonoBehaviour
     {
         foreach (Light l in luces)
         {
-            if (l != null) l.enabled = false;
+            if (l != null) l.enabled = false; //Apaga cada luz 
             yield return new WaitForSeconds(tiempoEntreLuces);
         }
         gameObject.SetActive(false);

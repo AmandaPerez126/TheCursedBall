@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Controla los botones del menú principal
 public class Menu : MonoBehaviour
 {
     void Start()
     {
+        //Música menú
         if (ManejadorMusica.Instancia != null)
             ManejadorMusica.Instancia.CambiarMusica("MenuScene");
     }

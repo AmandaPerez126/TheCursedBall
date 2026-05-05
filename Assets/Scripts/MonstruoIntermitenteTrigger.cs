@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Activa un monstruo que se mueve hacia el jugador y desaparece si lo alcanza o recorre cierta distancia.
 public class MonstruoIntermitenteTrigger : MonoBehaviour
 {
     public GameObject monstruo;
@@ -20,10 +21,11 @@ public class MonstruoIntermitenteTrigger : MonoBehaviour
     {
         if (monstruo != null)
         {
+            // Guarda estado original del monstruo
             posicionInicial = monstruo.transform.position;
             rotacionOriginal = monstruo.transform.rotation;
             escalaOriginal = monstruo.transform.localScale;
-            monstruo.SetActive(false);
+            monstruo.SetActive(false); // Empieza invisible
         }
     }
 
@@ -37,6 +39,7 @@ public class MonstruoIntermitenteTrigger : MonoBehaviour
 
         distanciaRecorrida += velocidad * Time.deltaTime;
 
+        // Si recorrió la distancia máxima desaparece
         if (distanciaRecorrida >= distanciaRecorridaMax)
         {
             colisionado = true;
@@ -44,7 +47,7 @@ public class MonstruoIntermitenteTrigger : MonoBehaviour
             monstruo.SetActive(false);
             gameObject.SetActive(false);
         }
-
+        // Si el monstruo se acerca demasiado al player, jumpscare y desaparece
         if (jugador != null)
         {
             float distancia = Vector3.Distance(monstruo.transform.position, jugador.position);
@@ -60,6 +63,7 @@ public class MonstruoIntermitenteTrigger : MonoBehaviour
         }
     }
 
+    // Al entrar el jugador en el trigger, se activa el monstruo
     void OnTriggerEnter(Collider other)
     {
         if (activado) return;

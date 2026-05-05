@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Reproduce un sonido de latidos al entrar el jugador al trigger
 public class TriggerLatidos : MonoBehaviour
 {
     private bool hasBeenTriggered = false;
@@ -14,6 +15,6 @@ public class TriggerLatidos : MonoBehaviour
         if (ManejadorMusica.Instancia != null)
             ManejadorMusica.Instancia.ReproducirLatidos();
 
-        Destroy(gameObject);
+        Destroy(gameObject); // El trigger se elimina tras su uso
     }
 }

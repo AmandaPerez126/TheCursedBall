@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Reproduce sonido al entrar el jugador al trigger
 public class TriggerPuerta : MonoBehaviour
 {
     private bool hasBeenTriggered = false;
@@ -14,6 +15,6 @@ public class TriggerPuerta : MonoBehaviour
         if (ManejadorMusica.Instancia != null)
             ManejadorMusica.Instancia.ReproducirPuerta();
 
-        Destroy(gameObject);
+        Destroy(gameObject); //El trigger se elimina tras su uso
     }
 }

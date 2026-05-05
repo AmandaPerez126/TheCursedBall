@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 
+// Al inicio de MainScene muestra un texto que se desvanece después de unos segundos
 public class TextoAutomatico : MonoBehaviour
 {
     public TextMeshProUGUI texto;
@@ -8,10 +9,11 @@ public class TextoAutomatico : MonoBehaviour
     public float velocidadFade = 1f;
 
     private CanvasGroup canvasGroup;
-    private static bool textoMostrado = false;
+    private static bool textoMostrado = false; // Compartido entre todas las instancias
 
     void Start()
     {
+        // Si ya se mostró este texto antes, se destruye
         if (textoMostrado)
         {
             Destroy(gameObject);
@@ -42,7 +44,7 @@ public class TextoAutomatico : MonoBehaviour
             yield return null;
         }
 
-        textoMostrado = true;
+        textoMostrado = true; // Marca que ya se mostró
         Destroy(gameObject);
     }
 }

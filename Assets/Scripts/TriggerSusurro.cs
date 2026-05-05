@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Reproduce sonido al entrar el jugador al trigger
 public class TriggerSusurro : MonoBehaviour
 {
     private bool hasBeenTriggered = false;
@@ -14,6 +15,6 @@ public class TriggerSusurro : MonoBehaviour
         if (ManejadorMusica.Instancia != null)
             ManejadorMusica.Instancia.ReproducirSusurro();
 
-        Destroy(gameObject);
+        Destroy(gameObject); //El trigger se elimina tras su uso
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//Control para el volumen en la escena de opciones
 public class SliderVolumenOpciones : MonoBehaviour
 {
     private Slider slider;
